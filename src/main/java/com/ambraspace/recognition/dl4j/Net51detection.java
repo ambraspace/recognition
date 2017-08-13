@@ -15,7 +15,6 @@ import org.deeplearning4j.eval.Evaluation;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
-import org.deeplearning4j.nn.conf.Updater;
 import org.deeplearning4j.nn.conf.inputs.InputType;
 import org.deeplearning4j.nn.conf.layers.ConvolutionLayer;
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
@@ -28,11 +27,13 @@ import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.deeplearning4j.ui.api.UIServer;
 import org.deeplearning4j.ui.storage.InMemoryStatsStorage;
 import org.deeplearning4j.util.ModelSerializer;
+import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.cpu.nativecpu.NDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.dataset.api.preprocessor.ImagePreProcessingScaler;
+import org.nd4j.linalg.learning.config.Nesterovs;
 import org.nd4j.linalg.lossfunctions.impl.LossBinaryXENT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -201,49 +202,49 @@ public class Net51detection {
                 //.learningRateDecayPolicy(LearningRatePolicy.Inverse).lrPolicyDecayRate(0.001).lrPolicyPower(0.75)
                 .weightInit(WeightInit.XAVIER)
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
-                .updater(Updater.NESTEROVS).momentum(0.9)
+                .updater(new Nesterovs(0.9))
                 .list()
                 .layer(0, new ConvolutionLayer.Builder(5, 5)
                         //nIn and nOut specify depth. nIn here is the nChannels and nOut is the number of filters to be applied
                         .nIn(channels)
                         .stride(1, 1)
                         .nOut(64)
-                        .activation("identity")
+                        .activation(Activation.IDENTITY)
                         .build())
                 .layer(1, new SubsamplingLayer.Builder(SubsamplingLayer.PoolingType.MAX)
                         .kernelSize(3,3)
                         .stride(2,2)
-                        .activation("identity")
+                        //.activation("identity")
                         .build())
                 .layer(2, new LocalResponseNormalization.Builder()
                 		//.alpha(0)
                 		//.beta(0)
                 		//.k(0)
-                		.n(9).activation("identity")
+                		.n(9)//.activation("identity")
                 		.build())
                 .layer(3, new ConvolutionLayer.Builder(5, 5)
                         .stride(1, 1)
                         .nOut(64)
-                        .activation("identity")
+                        .activation(Activation.IDENTITY)
                         .build())
                 .layer(4, new LocalResponseNormalization.Builder()
                 		//.alpha(0)
                 		//.beta(0)
                 		//.k(0)
-                		.n(9).activation("identity")
+                		.n(9)//.activation("identity")
                 		.build())
                 .layer(5, new SubsamplingLayer.Builder(SubsamplingLayer.PoolingType.MAX)
                         .kernelSize(3,3)
                         .stride(2,2)
-                        .activation("identity")
+                        //.activation("identity")
                         .build())
                 .layer(6, new DenseLayer.Builder()
-                		.activation("relu")
+                		.activation(Activation.RELU)
                         .nOut(256).build())
                 .layer(7, new OutputLayer.Builder(
                 		new LossBinaryXENT(new NDArray(new double[][]{{0.1, 1.0}})))
                         .nOut(outputNum)
-                        .activation("softmax")
+                        .activation(Activation.SOFTMAX)
                         .build())
                 .backprop(true).pretrain(false);
 

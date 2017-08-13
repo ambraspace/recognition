@@ -44,17 +44,17 @@
 		<dependency>
 			<groupId>org.deeplearning4j</groupId>
 			<artifactId>deeplearning4j-core</artifactId>
-			<version>0.7.1</version>
+			<version>0.9.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.datavec</groupId>
 			<artifactId>datavec-api</artifactId>
-			<version>0.7.1</version>
+			<version>0.9.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.nd4j</groupId>
 			<artifactId>nd4j-native-platform</artifactId>
-			<version>0.7.1</version>
+			<version>0.9.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.flickr4java</groupId>
@@ -64,7 +64,7 @@
 		<dependency>
 			<groupId>org.deeplearning4j</groupId>
 			<artifactId>deeplearning4j-ui_2.11</artifactId>
-			<version>0.7.1</version>
+			<version>0.9.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.hynnet</groupId>
