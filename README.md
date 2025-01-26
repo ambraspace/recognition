@@ -14,6 +14,6 @@ noticeably lower.
 
 ![2002-07-20-big-img_588](https://github.com/user-attachments/assets/0aec8abf-fdf6-4512-84f3-7078c169862d)
 
-## LICESE
+## LICENSE
 
 None.
