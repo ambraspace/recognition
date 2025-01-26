@@ -125,34 +125,34 @@ public class LFWLandmarks {
 				new InputStreamReader(
 						new FileInputStream(inputFile)))) {
 			
-//			String line = null;
-//			int numOfFaces, numOfParts;
-//			Image currentImage = null;
-//			Face currentFace = null;
-//			int x, y;
-//			while ((line=fin.readLine())!=null) {
-//				if (line.startsWith("processing image")) {
-//					line = line.substring(17);
-//					currentImage = new Image(new File(line));
-//					allLm.add(currentImage);
-//						
-//					line = fin.readLine();
-//					numOfFaces = Integer.parseInt(line.substring(26));
-//					for (int i=0; i<numOfFaces; i++) {
-//						currentFace = new Face();
-//						currentImage.addFace(currentFace);
-//						line=fin.readLine();
-//						numOfParts = Integer.parseInt(line.substring(17));
-//						for (int j=0; j<numOfParts; j++) {
-//							line=fin.readLine();
-//							line = line.substring(29);
-//							x=Integer.parseInt(line.substring(1, line.indexOf(",")));
-//							y=Integer.parseInt(line.substring(line.indexOf(",")+2, line.indexOf(")")));
-//							currentFace.addPoint(new Point(x, y));
-//						}
-//					}
-//				}
-//			}
+			String line = null;
+			int numOfFaces, numOfParts;
+			Image currentImage = null;
+			Face currentFace = null;
+			int x, y;
+			while ((line=fin.readLine())!=null) {
+				if (line.startsWith("processing image")) {
+					line = line.substring(17);
+					currentImage = new Image(new File(line));
+					allLm.add(currentImage);
+						
+					line = fin.readLine();
+					numOfFaces = Integer.parseInt(line.substring(26));
+					for (int i=0; i<numOfFaces; i++) {
+						currentFace = new Face();
+						currentImage.addFace(currentFace);
+						line=fin.readLine();
+						numOfParts = Integer.parseInt(line.substring(17));
+						for (int j=0; j<numOfParts; j++) {
+							line=fin.readLine();
+							line = line.substring(29);
+							x=Integer.parseInt(line.substring(1, line.indexOf(",")));
+							y=Integer.parseInt(line.substring(line.indexOf(",")+2, line.indexOf(")")));
+							currentFace.addPoint(new Point(x, y));
+						}
+					}
+				}
+			}
 		} catch (FileNotFoundException err) {
 			log.error("File " + inputFile.getAbsolutePath() + " not found!");
 		} catch (IOException err) {
@@ -276,7 +276,7 @@ public class LFWLandmarks {
 		 * Generation of all necessary classes for CNN training.
 		 */
 		{
-			if (false) {
+			if (true) {
 				
 				File calibration13folder = new File("/home/ambra/Deep Learning/LFW/calibration-13/");
 				File calibration25folder = new File("/home/ambra/Deep Learning/LFW/calibration-25/");
